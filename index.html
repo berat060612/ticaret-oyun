@@ -2,22 +2,116 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Ticaret İmparatorluğu — Oyuna Gir</title>
-<meta http-equiv="refresh" content="1;url=https://ticaret-imparatorlugu-sunucu.onrender.com">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ticaret İmparatorluğu — Bedava Tarayıcı Oyunu | Oyna</title>
+<meta name="description" content="Ticaret İmparatorluğu: 30 işletme kur, rütbe atla, loncana katıl. İndirmesiz, bedava, tarayıcıda oynanan multiplayer Türk ticaret oyunu.">
 <style>
-body{margin:0;height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1206,#3d2b0f);font-family:'Segoe UI',Arial,sans-serif;color:#ffd98a;text-align:center}
-.kutu{padding:40px 60px}
-h1{font-size:34px;margin:0 0 10px;color:#f5b942}
-p{color:rgba(255,233,168,.75);font-size:16px}
-a{color:#8fd0ff;text-decoration:none;font-weight:700}
+:root{--gold:#caa64a;--sari:#ffe9a8;--koyu:#0a0f18}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(160deg,#0a0f18,#131b2a 60%,#1a2438);color:#e8e4d8;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh}
+.hero{text-align:center;padding:70px 20px 40px;position:relative}
+.kose{position:absolute;width:26px;height:26px;border:3px solid rgba(202,166,74,.55)}
+.kose.tl{top:14px;left:14px;border-right:none;border-bottom:none;border-radius:8px 0 0 0}
+.kose.tr{top:14px;right:14px;border-left:none;border-bottom:none;border-radius:0 8px 0 0}
+.kose.bl{bottom:14px;left:14px;border-right:none;border-top:none;border-radius:0 0 0 8px}
+.kose.br{bottom:14px;right:14px;border-left:none;border-top:none;border-radius:0 0 8px 0}
+.badge{display:inline-block;background:rgba(202,166,74,.12);border:1px solid rgba(202,166,74,.4);color:#ffe9a8;border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;letter-spacing:1px}
+h1{font-size:44px;margin:16px 0 6px;color:#f5b942;letter-spacing:1px;text-shadow:0 2px 20px rgba(202,166,74,.35)}
+.tag{color:#8b93a7;font-size:17px;margin:0 0 26px}
+.btnler{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:15px 38px;border-radius:14px;font-weight:900;font-size:17px;cursor:pointer;text-decoration:none;display:inline-block;transition:.15s;border:none}
+.btn:active{transform:scale(.97)}
+.oyna{background:linear-gradient(160deg,#ffe08a,#f5b942);color:#241700;box-shadow:0 8px 30px rgba(202,166,74,.35)}
+.oyna:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(202,166,74,.5)}
+.telefon{background:rgba(20,26,40,.8);color:#ffe9a8;border:1.5px solid rgba(202,166,74,.45)}
+.ozet{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.ozet span{background:rgba(255,255,255,.04);border:1px solid rgba(202,166,74,.2);border-radius:10px;padding:6px 14px;font-size:13px;color:#c8cfdd}
+.kartlar{max-width:960px;margin:30px auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.kart{background:rgba(12,17,28,.85);border:1px solid rgba(202,166,74,.25);border-radius:14px;padding:18px}
+.kart .ico{font-size:30px}
+.kart h3{color:#ffe9a8;margin:8px 0 4px;font-size:16px}
+.kart p{color:#8b93a7;font-size:13px;line-height:1.5;margin:0}
+.nasil{max-width:720px;margin:36px auto;padding:22px;background:rgba(12,17,28,.85);border:1px solid rgba(202,166,74,.25);border-radius:16px}
+.nasil h2{color:#f5b942;font-size:20px;margin:0 0 14px}
+.adim{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.adim .n{background:linear-gradient(160deg,#caa64a,#8a6b1f);color:#241700;font-weight:900;border-radius:9px;min-width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+.adim p{margin:2px 0 0;color:#c8cfdd;font-size:14px;line-height:1.5}
+.davet{background:rgba(78,203,143,.08);border:1px solid rgba(78,203,143,.35);border-radius:12px;padding:14px 18px;margin-top:14px;font-size:14px;color:#a7e8c8;line-height:1.6}
+.oyun-alani{display:none;position:fixed;inset:0;background:#0a0f18;z-index:99}
+.oyun-alani.acik{display:block}
+.oyun-bar{display:flex;gap:10px;align-items:center;padding:8px 14px;background:rgba(12,17,28,.95);border-bottom:1px solid rgba(202,166,74,.3)}
+.oyun-bar b{color:#f5b942;font-size:14px}
+.oyun-bar button{margin-left:auto;padding:7px 18px;border-radius:10px;border:none;background:linear-gradient(160deg,#caa64a,#8a6b1f);color:#241700;font-weight:800;cursor:pointer}
+.oyun-bar iframe-yok{color:#8b93a7;font-size:12px}
+iframe{width:100%;height:calc(100vh - 52px);border:none;display:block}
+footer{text-align:center;color:#5a6377;font-size:12.5px;padding:30px 20px 40px;line-height:1.8}
+footer a{color:#8b93a7}
+.telefon-rehber{display:none;max-width:720px;margin:16px auto;padding:22px;background:rgba(12,17,28,.9);border:1px solid rgba(202,166,74,.35);border-radius:16px}
+.telefon-rehber.acik{display:block}
+.telefon-rehber h2{color:#f5b942;font-size:18px;margin:0 0 10px}
+.telefon-rehber p{color:#c8cfdd;font-size:14px;line-height:1.7;margin:6px 0}
 </style>
 </head>
 <body>
-<div class="kutu">
-<h1>⚖️ Ticaret İmparatorluğu</h1>
-<p>Oyun başlıyor... birkaç saniye içinde yönlendirileceksin.</p>
-<p>Bekleme uzun sürerse: <a href="https://ticaret-imparatorlugu-sunucu.onrender.com">tikaret-imparatorlugu-sunucu.onrender.com</a></p>
+<div class="hero">
+<span class="kose tl"></span><span class="kose tr"></span><span class="kose bl"></span><span class="kose br"></span>
+<span class="badge">🟢 BEDAVA · İNDİRMESİZ · TÜRKÇE</span>
+<h1>⚖️ TİCARET İMPARATORLUĞU</h1>
+<p class="tag">30 işletme kur · rütbe atla · loncana katıl · trilyoner ol</p>
+<div class="btnler">
+<button class="btn oyna" onclick="oyunAc()">▶️ HEMEN OYNA</button>
+<button class="btn telefon" onclick="document.getElementById('telf-rehber').classList.toggle('acik')">📱 Telefona Ekle</button>
 </div>
-<script>setTimeout(function(){location.replace("https://ticaret-imparatorlugu-sunucu.onrender.com")},800)</script>
+<div class="ozet">
+<span>👥 Çok oyunculu</span><span>🌐 Sunucu 7/24 açık</span><span>🎁 Davet = 50.000$</span><span>🏆 100 rütbe</span>
+</div>
+</div>
+
+<div class="kartlar">
+<div class="kart"><div class="ico">🏪</div><h3>30 İşletme</h3><p>Fırından gözlemevine — toptan al, rafı doldur, kasayı topla.</p></div>
+<div class="kart"><div class="ico">🏆</div><h3>100 Rütbe</h3><p>Yeni Tüccar'dan Roket Baronu'na — net değerininle yüksel.</p></div>
+<div class="kart"><div class="ico">🏰</div><h3>Lonca Savaşları</h3><p>Arkadaşlarınla lonca kur, haftalık kupa savaşlarına gir.</p></div>
+<div class="kart"><div class="ico">📦</div><h3>Mal Pazarı</h3><p>Oyuncular arasında mal al-sat, kervanını büyüt.</p></div>
+<div class="kart"><div class="ico">🔥</div><h3>Piyasa Olayları</h3><p>Hava durumu ve piyasa olayları kazancını etkiler — zamanlama senin.</p></div>
+<div class="kart"><div class="ico">🚀</div><h3>Uzay Görevleri</h3><p>Astronot gönder, riski göze al, yatırımı katla geri getir.</p></div>
+</div>
+
+<div class="nasil">
+<h2>🎮 Nasıl Oynanır?</h2>
+<div class="adim"><div class="n">1</div><p><b>Hemen Oyna</b>'ya bas — hesap 30 saniyede açılır, indirme yok.</p></div>
+<div class="adim"><div class="n">2</div><p>İşletmeler sekmesinden dükkan kur, ürün al, rafları doldur — kasalar senin için satış yapar.</p></div>
+<div class="adim"><div class="n">3</div><p>Karını yeniden yatır: yeni şehirler, saraylar, gözlemevi... İmparatorluğunu büyüt!</p></div>
+<div class="davet">🎁 <b>Arkadaşını davet et, ikiniz de kazanın:</b> Davet edilen <b>50.000$</b>, davet eden <b>25.000$</b> bonus! Mail doğrulaması yapan herkes ödülü alır. Hesabım → 🤝 Davet Et.</div>
+</div>
+
+<div class="telefon-rehber" id="telf-rehber">
+<h2>📱 Telefona Ekle (uygulama gibi)</h2>
+<p><b>Android (Chrome):</b> Oyunu aç → sağ üst ⋮ menü → <b>"Ana ekrana ekle"</b>.</p>
+<p><b>iPhone (Safari):</b> Paylaş düğmesi ⬆️ → <b>"Ana Ekran'a Ekle"</b>.</p>
+<p>Artık ikonuna dokun, oyun uygulama gibi tam ekran açılır. 🎮</p>
+</div>
+
+<div class="oyun-alani" id="oyun-alani">
+<div class="oyun-bar"><b>⚖️ Ticaret İmparatorluğu</b><span style="color:#8b93a7;font-size:12px">İlk açılış sunucu uyanması ~1 dk sürebilir</span><button onclick="oyunKapat()">✖ Kapat</button></div>
+<iframe id="oyun-if" src="about:blank" title="Ticaret İmparatorluğu"></iframe>
+</div>
+
+<footer>
+⚖️ Ticaret İmparatorluğu — bedava tarayıcı oyunu · Sunucu 7/24 çalışır (Render.com)<br>
+<a href="https://github.com/berat060612/ticaret-oyun">Kaynak</a> · Oyun içi: Hesabım → 🤝 Davet Et ile arkadaşını getir
+</footer>
+
+<script>
+function oyunAc(){
+  var f=document.getElementById("oyun-if");
+  if(f.src==="about:blank") f.src="https://ticaret-imparatorlugu-sunucu.onrender.com/";
+  document.getElementById("oyun-alani").classList.add("acik");
+  document.body.style.overflow="hidden";
+}
+function oyunKapat(){
+  document.getElementById("oyun-alani").classList.remove("acik");
+  document.body.style.overflow="";
+}
+</script>
 </body>
 </html>
